@@ -1,0 +1,279 @@
+data a;
+	infile '/home/n12551847250/sasuser.v94/HK_91318.csv'
+	dsd lrecl=32767;
+	informat date $10. ;       /*修改被截取字段的读入长度*/
+	format date $10. ;
+	input date shareholding numparti ratio code $ ammount rate;    /* holder $ */
+run;
+data ob;
+retain y 0;
+do x=0 to 293 by 1;   /*n-1*/
+  y=y+1;
+  output;
+end;
+run;
+*1.C00019
+2.C00010
+4.C00100
+5.C00039
+3.B01161
+7.B01110
+10.C00093
+B01143
+6.B01224
+B01130
+B01491
+B01274 MORGAN STANLEY HONG KONG SECURITIES LTD
+B01451 高盛(亚洲)证券有限公司
+C00102 MACQUARIE BANK LTD
+C00074 德意志银行
+B01590 盈透证券香港有限公司;
+*B01138 中信里昂证券有限公司
+B01323 德意志证券亚洲有限公司;
+
+*end of month3 6 9 12;
+
+*C00019香港上海汇丰银行有限公司;
+data hk;
+set a;
+drop holder;
+if code='C00019';
+run;
+data p;
+merge hk ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p;
+title '1. 香港上海汇丰银行有限公司';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+symbol interpol=join value=dot;
+proc gplot data=p;
+title '于中央结算系统的持股量(A股)';
+plot shareholding*y/href=60 134 206 277;
+run;
+quit;
+symbol interpol=join value=dot;
+proc gplot data=p;
+title '佔於上交所/深交所上市及交易的A股總數的百分比';
+plot ratio*y/href=60 134 206 277;
+run;
+quit;
+
+*B01451 高盛(亚洲)证券有限公司;
+data hk1;
+set a;
+drop holder;
+if code='B01451';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '2. 高盛(亚洲)证券有限公司';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*C00100 JPMORGAN CHASE BANK, NATIONAL ASSOCIATION;
+data hk3;
+set a;
+drop holder;
+if code='C00100';
+run;
+data p3;
+merge hk3 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p3;
+title '3. JPMORGAN CHASE BANK, NATIONAL ASSOCIATION';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*C00039 渣打银行(香港)有限公司;
+data hk1;
+set a;
+drop holder;
+if code='C00039';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '4. 渣打银行(香港)有限公司';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*B01224 MLFE LTD;
+data hk1;
+set a;
+drop holder;
+if code='B01224';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '5. MLFE LTD';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*C00010花旗银行;
+data hk2;
+set a;
+drop holder;
+if code='C00010';
+run;
+data p2;
+merge hk2 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p2;
+title '6. 花旗银行';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*B01274 MORGAN STANLEY HONG KONG SECURITIES LTD;
+data hk3;
+set a;
+drop holder;
+if code='B01274';
+run;
+data p3;
+merge hk3 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p3;
+title '7. MORGAN STANLEY HONG KONG SECURITIES LTD';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*B01161 UBS SECURITIES HONG KONG LTD;
+data hk1;
+set a;
+drop holder;
+if code='B01161';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '8. UBS SECURITIES HONG KONG LTD';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*B01110 J.P. MORGAN BROKING (HONG KONG) LTD;
+data hk1;
+set a;
+drop holder;
+if code='B01110';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '9. J.P. MORGAN BROKING (HONG KONG) LTD';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*B01130 中银国际证券有限公司;
+data hk1;
+set a;
+drop holder;
+if code='B01130';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '10. 中银国际证券有限公司';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*B01491 CREDIT SUISSE SECURITIES (HONG KONG) LTD;
+data hk1;
+set a;
+drop holder;
+if code='B01491';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '11. CREDIT SUISSE SECURITIES (HONG KONG) LTD';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*C00093 BNP PARIBAS SECURITIES SERVICES;
+data hk1;
+set a;
+drop holder;
+if code='C00093';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '12. BNP PARIBAS SECURITIES SERVICES';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+
+
+
+
+
+
+*C00033 中国银行(香港)有限公司;
+data hk1;
+set a;
+drop holder;
+if code='C00033';
+run;
+data p1;
+merge hk1 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p1;
+title '6. 中国银行(香港)有限公司';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+*B01564 农银国际证券有限公司;
+data hk3;
+set a;
+drop holder;
+if code='B01564';
+run;
+data p3;
+merge hk3 ob;
+drop x;
+run;
+symbol interpol=join value=dot;
+proc gplot data=p3;
+title '1. 农银国际证券有限公司';
+plot ammount*y/href=60 134 206 277;
+run;
+quit;
+
